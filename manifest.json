@@ -1,0 +1,21 @@
+{
+  "background": {
+    "scripts": [  ]
+  },
+  "browser_action": {
+    "default_icon": "icons/logo.png",
+    "default_popup": "popup.html",
+    "default_title": "Save URLs to your Stash"
+  },
+  "content_security_policy": "script-src 'self' https://ssl.google-analytics.com; object-src 'self'",
+  "description": "Save tabs URL to your Stash. You don't have to open several tabs anymore. Keep important URLs in your Stash and come back to them anytime.",
+  "icons": {
+    "128": "icons/logo_128.png"
+  },
+  "manifest_version": 2,
+  "name": "Stashio",
+  "options_page": "options.html",
+  "permissions": [ "tabs", "storage"],
+  "update_url": "https://clients2.google.com/service/update2/crx",
+  "version": "1.0.0"
+}
