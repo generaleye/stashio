@@ -1,5 +1,5 @@
 function saveCurrentTabUrl() {
-    var theValue = Date.now();
+    var theValue = new Date().getTime();
     chrome.tabs.query({
         active: true,
         lastFocusedWindow: true
@@ -11,6 +11,9 @@ function saveCurrentTabUrl() {
 
         // Save it using the Chrome extension storage API.
         chrome.storage.sync.set(obj, function() {
+            var message = $('#message');
+            message.html("URL Saved Successfully");
+            setTimeout(function(){window.close();}, 2000);
             console.log(obj);
         });
 
@@ -21,20 +24,24 @@ function saveAllTabUrls() {
 
     var tabsString = "";
     chrome.tabs.query({},function(tabs){
+        var tabCount = 0;
         tabs.forEach(function(tab){
 
             tabsString = tabsString + tab.url + ",";
-            console.log(tabsString);
 
+            tabCount += 1;
         });
 
         var obj= {};
-        var theValue = Date.now();
+        var theValue = new Date().getTime();
         tabsString = tabsString.replace(/,\s*$/, "");
         obj[theValue] = tabsString;
 
         // Save it using the Chrome extension storage API.
         chrome.storage.sync.set(obj, function() {
+            var message = $('#message');
+            message.html(tabCount+" URLs Saved Successfully");
+            setTimeout(function(){window.close();}, 2000);
             console.log("SAVED " + obj[theValue]);
         });
     });

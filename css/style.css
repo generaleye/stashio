@@ -1,0 +1,44 @@
+#mainPopup{
+    width: 200px;
+}
+
+.btn{
+    padding: 7px 10px;
+    text-align: center;
+    border-radius: 0;
+    background-color: #338399;
+    border: none;
+    color: #F5F5F5;
+}
+
+.actions{
+    display: inline-block;
+    width: 100%;
+    padding:5px 3px;
+}
+
+.actions button{
+    font-size: 0.9em;
+    display: inline-block;
+}
+
+.actions button:hover{
+    background-color: #054721;
+}
+
+.actions a{
+    font-size: 0.8em;
+    display: inline-block;
+}
+
+#message {
+    font-size: 0.8em;
+    color: #00a65a;
+}
+
+.left{
+    float: left;
+}
+.right{
+    float: right;
+}

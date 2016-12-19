@@ -8,6 +8,13 @@ $.fn.reverseChildren = function() {
 };
 
 
+function shortenText(text) {
+    if (text.length > 150) {
+        text = text.substr(0, 150)+".....";
+    }
+    return text;
+}
+
 function getFromStorage() {
     var result = {};
     var list = $('#list');
@@ -19,25 +26,21 @@ function getFromStorage() {
         var innerList = $('#innerList');
         for (key in items) {
             var value = items[key];
-            // console.log('Key is "%s" Value is "%s".', key, value);
             var array = value.split(',');
 
             if (array.length > 1) {
                 var d = Date.now();
-                console.log(d);
-                innerList.append( '<li><input type="checkbox"/><label >' +new Date(key/1000)+ ' ( '+array.length+' )</label><ul id="innerMostList"></ul> </li>' );
+                // console.log(d);
+                innerList.append( '<li><input type="checkbox"/><label >' +new Date(parseInt(key)).toLocaleString("en-GB")+ ' ( '+array.length+' )</label><ul id="'+key+'"></ul>   <button id="'+key+'" class="deleteFolderBtn">Delete Folder</button></li>' );
 
-                var innerMostList = $('#innerMostList');
+                var innerMostList = $('#'+key);
 
                 for (link in array) {
-                    innerMostList.append( '<li><a href="'+array[link]+'">' +array[link]+ '</a></li>' );
+                    innerMostList.append( '<li><a href="'+array[link]+'">' +shortenText(array[link])+ '</a>   <button id="'+array[link]+'" class="deleteInnerBtn">Delete</button></li>' );
                 }
-                // <li><a href="./">Item 1</a></li>
-                // <li><a href="./">Item 2</a></li>
 
             } else {
-                innerList.append( '<li>' +new Date(key/1000)+ ' - <a href="'+value+'">' +value+ '</a></li>' );
-                console.log(key +" = " + (new Date(key/1000).toLocaleString('en-US')));
+                innerList.append( '<li>' +new Date(parseInt(key)).toLocaleString("en-GB")+ ' - <a href="'+value+'">' +shortenText(value)+ '</a>   <button id="'+key+'" class="deleteBtn">Delete</button></li>' );
             }
 
         }
@@ -54,9 +57,56 @@ $( document ).ready(function() {
     // console.log(items);
     for (key in items) {
         var value = items[key];
-        // console.log('Key is "%s" Value is "%s".', key, value)
-        // if (items.hasOwnProperty(property)) {
-        //     console.log(property);
-        // }
+        // console.log('Key is "%s" Value is "%s".', key, value);
     }
+
+
+    $(document).on("click", ".deleteBtn", function() {
+        chrome.storage.sync.remove(this.id, function() {
+            console.log("REMOVED");
+        });
+        var par = $(this).parent();
+        par.remove();
+    });
+
+    $(document).on("click", ".deleteInnerBtn", function() {
+        var link = this.id;
+        var thisPar = $(this).parent();
+        var par = $(this).parent().parent();
+        var linkId = par[0].id;
+
+        chrome.storage.sync.get(linkId, function(result) {
+
+            var res = result[linkId];
+            var resInd = result[linkId].indexOf(link);
+            var len = link.length;
+            console.log(res);
+            if (res[resInd+len] == ',') {
+                len+=1;
+            }
+
+            var newString =  res.slice(0, resInd) + res.slice(resInd + len);
+
+            var obj= {};
+            obj[linkId] = newString;
+
+            // Save it using the Chrome extension storage API.
+            chrome.storage.sync.set(obj, function() {
+                thisPar.remove();
+                // console.log(obj);
+            });
+            console.log(newString);
+
+        });
+        // par.remove();
+    });
+
+    $(document).on("click", ".deleteFolderBtn", function() {
+        chrome.storage.sync.remove(this.id, function() {
+            console.log("REMOVED");
+        });
+        var par = $(this).parent();
+        par.remove();
+    });
+
 });

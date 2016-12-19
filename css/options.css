@@ -129,3 +129,17 @@ vertical-align: middle;
         }
     }
 }
+
+button {
+    /*padding: 7px 10px;*/
+    text-align: center;
+    border-radius: 0;
+    background-color: #338399;
+    border: none;
+    color: #F5F5F5;
+    font-size: 0.8em;
+}
+
+#mainBody {
+    margin: auto 20%;
+}
