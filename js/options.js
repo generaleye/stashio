@@ -7,7 +7,6 @@ $.fn.reverseChildren = function() {
     });
 };
 
-
 function shortenText(text) {
     if (text.length > 100) {
         text = text.substr(0, 100)+".....";
@@ -19,7 +18,6 @@ function getFromStorage() {
     var result = {};
     var list = $('#list');
     chrome.storage.sync.get(null, function(items) {
-        // console.log(items);
 
         list.append( '<li><input type="checkbox" checked /><label >All Items ('+ Object.keys(items).length +')</label> <ul id="innerList"> </ul> </li>');
 
@@ -30,7 +28,6 @@ function getFromStorage() {
 
             if (array.length > 1) {
                 var d = Date.now();
-                // console.log(d);
                 innerList.append( '<li><input type="checkbox"/><label >' +new Date(parseInt(key)).toLocaleString("en-GB")+ ' ( '+array.length+' )</label><ul id="'+key+'"></ul>   <button id="'+key+'" class="deleteFolderBtn">Delete Folder</button></li>' );
 
                 var innerMostList = $('#'+key);
@@ -38,27 +35,23 @@ function getFromStorage() {
                 for (link in array) {
                     innerMostList.append( '<li><a href="'+array[link]+'">' +shortenText(array[link])+ '</a>   <button id="'+array[link]+'" class="deleteInnerBtn">Delete</button></li>' );
                 }
-
             } else {
                 innerList.append( '<li>' +new Date(parseInt(key)).toLocaleString("en-GB")+ ' - <a href="'+value+'">' +shortenText(value)+ '</a>   <button id="'+key+'" class="deleteBtn">Delete</button></li>' );
             }
 
         }
 
-        $('#innerList').reverseChildren();
-        // return items;
+        innerList.reverseChildren();
     });
 }
 
 $( document ).ready(function() {
     chrome.storage.sync.getBytesInUse(null, function(spaceUsed) {
-        console.log(spaceUsed);
         $('#meterPercent').val(spaceUsed);
         $('#percentUsed').html(((spaceUsed/102400)*100).toFixed(1)+"%")
     });
 
     var items = getFromStorage();
-    // console.log(items);
     for (key in items) {
         var value = items[key];
         // console.log('Key is "%s" Value is "%s".', key, value);
@@ -67,7 +60,6 @@ $( document ).ready(function() {
 
     $(document).on("click", ".deleteBtn", function() {
         chrome.storage.sync.remove(this.id, function() {
-            console.log("REMOVED");
         });
         var par = $(this).parent();
         par.remove();
@@ -84,7 +76,6 @@ $( document ).ready(function() {
             var res = result[linkId];
             var resInd = result[linkId].indexOf(link);
             var len = link.length;
-            console.log(res);
             if (res[resInd+len] == ',') {
                 len+=1;
             }
@@ -97,17 +88,13 @@ $( document ).ready(function() {
             // Save it using the Chrome extension storage API.
             chrome.storage.sync.set(obj, function() {
                 thisPar.remove();
-                // console.log(obj);
             });
-            console.log(newString);
 
         });
-        // par.remove();
     });
 
     $(document).on("click", ".deleteFolderBtn", function() {
         chrome.storage.sync.remove(this.id, function() {
-            console.log("REMOVED");
         });
         var par = $(this).parent();
         par.remove();
