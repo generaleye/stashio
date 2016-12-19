@@ -9,8 +9,8 @@ $.fn.reverseChildren = function() {
 
 
 function shortenText(text) {
-    if (text.length > 150) {
-        text = text.substr(0, 150)+".....";
+    if (text.length > 100) {
+        text = text.substr(0, 100)+".....";
     }
     return text;
 }
