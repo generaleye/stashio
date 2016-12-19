@@ -51,7 +51,11 @@ function getFromStorage() {
 }
 
 $( document ).ready(function() {
-
+    chrome.storage.sync.getBytesInUse(null, function(spaceUsed) {
+        console.log(spaceUsed);
+        $('#meterPercent').val(spaceUsed);
+        $('#percentUsed').html(((spaceUsed/102400)*100).toFixed(1)+"%")
+    });
 
     var items = getFromStorage();
     // console.log(items);

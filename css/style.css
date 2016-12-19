@@ -1,3 +1,7 @@
+body {
+    background-color: #EEEEEE;
+}
+
 #mainPopup{
     width: 200px;
 }
@@ -42,3 +46,167 @@
 .right{
     float: right;
 }
+
+
+.css-treeview ul,
+.css-treeview li
+{
+    padding: 0;
+    margin: 0;
+    list-style: none;
+}
+
+.css-treeview input
+{
+    position: absolute;
+    opacity: 0;
+}
+
+.css-treeview
+{
+    font: normal 11px "Segoe UI", Arial, Sans-serif;
+    -moz-user-select: none;
+    -webkit-user-select: none;
+    user-select: none;
+}
+
+.css-treeview a
+{
+    color: #00f;
+    text-decoration: none;
+}
+
+.css-treeview a:hover
+{
+    text-decoration: underline;
+}
+
+.css-treeview input + label + ul
+{
+    margin: 0 0 0 22px;
+}
+
+.css-treeview input ~ ul
+{
+    display: none;
+}
+
+.css-treeview label,
+.css-treeview label::before
+{
+    cursor: pointer;
+}
+
+.css-treeview input:disabled + label
+{
+    cursor: default;
+    opacity: .6;
+}
+
+.css-treeview input:checked:not(:disabled) ~ ul
+{
+    display: block;
+}
+
+.css-treeview label,
+.css-treeview label::before
+{
+    background: url("../icons/icons.png") no-repeat;
+}
+
+.css-treeview label,
+.css-treeview a,
+.css-treeview label::before
+{
+    display: inline-block;
+    height: 16px;
+    line-height: 16px;,
+vertical-align: middle;
+}
+
+.css-treeview label
+{
+    background-position: 18px 0;
+}
+
+.css-treeview label::before
+{
+    content: "";
+    width: 16px;
+    margin: 0 22px 0 0;
+    vertical-align: middle;
+    background-position: 0 -32px;
+}
+
+.css-treeview input:checked + label::before
+{
+    background-position: 0 -16px;
+}
+
+/* webkit adjacent element selector bugfix */
+@media screen and (-webkit-min-device-pixel-ratio:0)
+{
+    .css-treeview
+    {
+        -webkit-animation: webkit-adjacent-element-selector-bugfix infinite 1s;
+    }
+
+    @-webkit-keyframes webkit-adjacent-element-selector-bugfix
+    {
+        from
+        {
+            padding: 0;
+        }
+        to
+        {
+            padding: 0;
+        }
+    }
+}
+
+button {
+    /*padding: 7px 10px;*/
+    text-align: center;
+    border-radius: 0;
+    background-color: #338399;
+    border: none;
+    color: #F5F5F5;
+    font-size: 0.8em;
+}
+
+#mainBody {
+    margin: auto 20%;
+}
+
+meter {
+    width: 100%;
+}
+
+
+.styled meter::-webkit-meter-optimum-value {
+    background: #86CC00;
+}
+
+.styled meter::-webkit-meter-suboptimum-value {
+    background: #FFDB1A;
+}
+
+.styled meter::-webkit-meter-even-less-good-value  {
+    background: #CC4600;
+}
+
+
+.scale {
+    display: table;
+    width: 100%;
+    padding: 0px 0px 0px 0px;
+    margin: 2px 0px 10px 0px;
+    border: 0px;
+    text-align: center;
+}
+
+.scale li {
+    width: 10%;
+    display: table-cell;
+    white-space: nowrap;
+}​
