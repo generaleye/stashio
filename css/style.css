@@ -6,6 +6,10 @@ body {
     width: 200px;
 }
 
+#logo_options {
+    vertical-align: middle;
+}
+
 .btn{
     padding: 7px 10px;
     text-align: center;
