@@ -15,14 +15,14 @@
   "background": {
     "scripts": [  ]
   },
-  "browser_action": {
+  "action": {
     "default_icon": "icons/logo_48.png",
     "default_popup": "popup.html",
     "default_title": "Save URLs to your Stash"
   },
-  "manifest_version": 2,
+  "manifest_version": 3,
   "update_url": "https://clients2.google.com/service/update2/crx",
-  "version": "1.0.2",
+  "version": "1.0.3",
   "author": "generaleye <odumuyiwaleye@gmail.com>",
   "offline_enabled": true
 
